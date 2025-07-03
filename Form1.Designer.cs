@@ -83,7 +83,7 @@
             // OperatorBoxAdd
             // 
             OperatorBoxAdd.BackgroundImage = (Image)resources.GetObject("OperatorBoxAdd.BackgroundImage");
-            OperatorBoxAdd.BackgroundImageLayout = ImageLayout.None;
+            OperatorBoxAdd.BackgroundImageLayout = ImageLayout.Zoom;
             OperatorBoxAdd.Location = new Point(376, 207);
             OperatorBoxAdd.Name = "OperatorBoxAdd";
             OperatorBoxAdd.Size = new Size(25, 25);
@@ -115,7 +115,7 @@
             // OperatorBoxSubtract
             // 
             OperatorBoxSubtract.BackgroundImage = (Image)resources.GetObject("OperatorBoxSubtract.BackgroundImage");
-            OperatorBoxSubtract.BackgroundImageLayout = ImageLayout.None;
+            OperatorBoxSubtract.BackgroundImageLayout = ImageLayout.Zoom;
             OperatorBoxSubtract.Location = new Point(376, 207);
             OperatorBoxSubtract.Name = "OperatorBoxSubtract";
             OperatorBoxSubtract.Size = new Size(25, 25);
@@ -126,7 +126,7 @@
             // OperatorBoxDivide
             // 
             OperatorBoxDivide.BackgroundImage = (Image)resources.GetObject("OperatorBoxDivide.BackgroundImage");
-            OperatorBoxDivide.BackgroundImageLayout = ImageLayout.None;
+            OperatorBoxDivide.BackgroundImageLayout = ImageLayout.Zoom;
             OperatorBoxDivide.Location = new Point(376, 207);
             OperatorBoxDivide.Name = "OperatorBoxDivide";
             OperatorBoxDivide.Size = new Size(25, 25);
@@ -137,7 +137,7 @@
             // OperatorBoxMultipy
             // 
             OperatorBoxMultipy.BackgroundImage = (Image)resources.GetObject("OperatorBoxMultipy.BackgroundImage");
-            OperatorBoxMultipy.BackgroundImageLayout = ImageLayout.None;
+            OperatorBoxMultipy.BackgroundImageLayout = ImageLayout.Zoom;
             OperatorBoxMultipy.Location = new Point(376, 207);
             OperatorBoxMultipy.Name = "OperatorBoxMultipy";
             OperatorBoxMultipy.Size = new Size(25, 25);

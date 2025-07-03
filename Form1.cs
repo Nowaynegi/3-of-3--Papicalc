@@ -10,6 +10,12 @@ namespace Papicalc
         private static int selectedOperand;
         private static int selectedOperator;
         private static List<PictureBox> operatorsBoxList;
+
+        // variables for the animation! <3
+        private System.Windows.Forms.Timer operatorAnimationTimer;
+        private int animationFrame = 0;
+        private const int totalAnimationFrames = 20; // Total frames for one full cycle (shrink + grow)
+        private float originalOperatorPictureSize; // Stores the initial font size of the operator label
         public Form1()
         {
             InitializeComponent();
@@ -35,6 +41,30 @@ namespace Papicalc
             selectedOperator = 0;
             selectedOperand = 0;
             operatorsBoxList[selectedOperator].Visible = true;
+
+            /*System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
+            // how often a tick happens (in milliseconds)
+            t.Interval = 1000;
+
+            t.Tick += T_Tick;
+
+            t.Start();*/
+
+            operatorAnimationTimer = new System.Windows.Forms.Timer
+            {
+                Interval = 300 
+            };
+            operatorAnimationTimer.Tick += OperatorAnimationTimer_Tick;
+        }
+
+        private void OperatorAnimationTimer_Tick(object? sender, EventArgs e)
+        {
+            if (totalAnimationFrames == animationFrame) { operatorAnimationTimer.Stop(); }
+            operatorsBoxList[selectedOperator - 1].Location = new Point(.Location.X, this.Location.Y + 1);
+            operatorsBoxList[selectedOperator - 1].Size = new Size(this.Size.Width - 3, this.Size.Height - 3);
+            operatorsBoxList[selectedOperator].Location = new Point(this.Location.X, this.Location.Y + 1);
+            operatorsBoxList[selectedOperator].Size = new Size(this.Size.Width + 3, this.Size.Height + 3);
+            animationFrame ++ ;
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
@@ -70,11 +100,14 @@ namespace Papicalc
             }
             if (keyData == Keys.Up)
             {
-                operatorsBoxList[selectedOperator].Visible = false;
+                
                 if (selectedOperator == operatorsBoxList.Count - 1) { selectedOperator = 0; operatorsBoxList[selectedOperator].Visible = true; OutputBox.Text = HandleCalculation(); return true; }
                 selectedOperator ++ ;
-                operatorsBoxList[selectedOperator].Visible = true;
                 OutputBox.Text = HandleCalculation();
+                animationFrame = 0;
+                operatorAnimationTimer.Start();
+                operatorsBoxList[selectedOperator].Visible = true;
+                operatorsBoxList[selectedOperator].Visible = false;
                 return true;
             }
             if (keyData == Keys.Down)
