@@ -53,6 +53,7 @@
             // Operand1
             // 
             Operand1.BackColor = SystemColors.GradientInactiveCaption;
+            Operand1.Enabled = false;
             Operand1.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Operand1.Location = new Point(327, 196);
             Operand1.Name = "Operand1";
@@ -64,6 +65,7 @@
             // textBox1
             // 
             textBox1.BackColor = Color.Snow;
+            textBox1.Enabled = false;
             textBox1.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBox1.Location = new Point(407, 196);
             textBox1.Name = "textBox1";
@@ -95,6 +97,7 @@
             // OutputBox
             // 
             OutputBox.BackColor = SystemColors.ControlLight;
+            OutputBox.Enabled = false;
             OutputBox.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             OutputBox.Location = new Point(487, 196);
             OutputBox.Name = "OutputBox";
