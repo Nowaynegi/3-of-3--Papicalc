@@ -10,6 +10,7 @@ namespace Papicalc
         private static int selectedOperand;
         private static int selectedOperator;
         private static List<PictureBox> operatorsBoxList;
+        private static PictureBox previousBox;
 
         // variables for the animation! <3
         private System.Windows.Forms.Timer operatorAnimationTimer;
@@ -52,18 +53,18 @@ namespace Papicalc
 
             operatorAnimationTimer = new System.Windows.Forms.Timer
             {
-                Interval = 300 
+                Interval = 25
             };
             operatorAnimationTimer.Tick += OperatorAnimationTimer_Tick;
         }
 
         private void OperatorAnimationTimer_Tick(object? sender, EventArgs e)
         {
-            if (totalAnimationFrames == animationFrame) { operatorAnimationTimer.Stop(); }
-            operatorsBoxList[selectedOperator - 1].Location = new Point(.Location.X, this.Location.Y + 1);
-            operatorsBoxList[selectedOperator - 1].Size = new Size(this.Size.Width - 3, this.Size.Height - 3);
-            operatorsBoxList[selectedOperator].Location = new Point(this.Location.X, this.Location.Y + 1);
-            operatorsBoxList[selectedOperator].Size = new Size(this.Size.Width + 3, this.Size.Height + 3);
+            if (totalAnimationFrames == animationFrame) { operatorAnimationTimer.Stop(); previousBox.Visible = false; }
+            previousBox.Location = new Point(previousBox.Location.X + 1, previousBox.Location.Y - 2);
+            previousBox.Size = new Size(previousBox.Size.Width - 2, previousBox.Size.Height - 2);
+            operatorsBoxList[selectedOperator].Location = new Point(operatorsBoxList[selectedOperator].Location.X - 1, operatorsBoxList[selectedOperator].Location.Y - 4);
+            operatorsBoxList[selectedOperator].Size = new Size(operatorsBoxList[selectedOperator].Size.Width + 2, operatorsBoxList[selectedOperator].Size.Height + 2);
             animationFrame ++ ;
         }
 
@@ -100,14 +101,15 @@ namespace Papicalc
             }
             if (keyData == Keys.Up)
             {
-                
-                if (selectedOperator == operatorsBoxList.Count - 1) { selectedOperator = 0; operatorsBoxList[selectedOperator].Visible = true; OutputBox.Text = HandleCalculation(); return true; }
-                selectedOperator ++ ;
+                previousBox = operatorsBoxList[selectedOperator];
+                if (selectedOperator == operatorsBoxList.Count - 1) { selectedOperator = 0; }
+                else { selectedOperator++; }
                 OutputBox.Text = HandleCalculation();
+                operatorsBoxList[selectedOperator].Size = new Size(0, 0);
+                operatorsBoxList[selectedOperator].Location = new Point(358, 297); 
+                operatorsBoxList[selectedOperator].Visible = true;
                 animationFrame = 0;
                 operatorAnimationTimer.Start();
-                operatorsBoxList[selectedOperator].Visible = true;
-                operatorsBoxList[selectedOperator].Visible = false;
                 return true;
             }
             if (keyData == Keys.Down)
