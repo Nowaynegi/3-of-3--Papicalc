@@ -5,8 +5,9 @@ namespace Papicalc
 {
     public partial class Form1 : Form
     {
-        private static List<TextBox> operands;
+        private static List<TextBox> operandsBoxList;
         private static int selectedOperand;
+        private static int[] operandsIntList;
         public Form1()
         {
             InitializeComponent();
@@ -24,37 +25,42 @@ namespace Papicalc
 
             //operands = new List<TextBox> { Operand1, Operand2 };
 
-            operands = [Operand1, Operand2];
+            operandsBoxList = [Operand1, Operand2];
+            operandsIntList = new int[operandsBoxList.Count];
 
             selectedOperand = 0;
         }
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            Debug.Text = e.KeyChar.ToString();
+            //Debug.Text = e.KeyChar.ToString();
 
             int i;
             if (int.TryParse(e.KeyChar.ToString(), out i))
             {
-                operands[selectedOperand].Text = i.ToString();
+                operandsBoxList[selectedOperand].Text = i.ToString();
+                operandsIntList[selectedOperand] = i;
+                OutputBox.Text = (operandsIntList[0] + operandsIntList[1]).ToString();
+
+
             }
-                e.Handled = true;
+            e.Handled = true;
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
             if (keyData == Keys.Left)
             {
-                operands[selectedOperand].BackColor = Color.Snow;
+                operandsBoxList[selectedOperand].BackColor = Color.Snow;
                 //selectedOperand = selectedOperand-- == -1 ? selectedOperand : selectedOperand--;
                 if (selectedOperand != 0) { selectedOperand--; }
-                operands[selectedOperand].BackColor = Color.PowderBlue;
+                operandsBoxList[selectedOperand].BackColor = Color.PowderBlue;
                 return true;
             }
             if (keyData == Keys.Right)
             {
-                operands[selectedOperand].BackColor = Color.Snow;
-                if (selectedOperand != operands.Count - 1) { selectedOperand++; }
-                operands[selectedOperand].BackColor = Color.PowderBlue;
+                operandsBoxList[selectedOperand].BackColor = Color.Snow;
+                if (selectedOperand != operandsBoxList.Count - 1) { selectedOperand++; }
+                operandsBoxList[selectedOperand].BackColor = Color.PowderBlue;
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
