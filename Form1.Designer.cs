@@ -31,11 +31,10 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             OperatorLabel = new Label();
             Operand1 = new TextBox();
-            textBox1 = new TextBox();
+            Operand2 = new TextBox();
             OperatorBox = new PictureBox();
             EqualBox = new PictureBox();
             OutputBox = new TextBox();
-            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)OperatorBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)EqualBox).BeginInit();
             SuspendLayout();
@@ -53,7 +52,7 @@
             // 
             // Operand1
             // 
-            Operand1.BackColor = SystemColors.GradientInactiveCaption;
+            Operand1.BackColor = Color.PowderBlue;
             Operand1.Enabled = false;
             Operand1.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Operand1.Location = new Point(327, 196);
@@ -63,17 +62,17 @@
             Operand1.Text = "_";
             Operand1.TextAlign = HorizontalAlignment.Center;
             // 
-            // textBox1
+            // Operand2
             // 
-            textBox1.BackColor = Color.Snow;
-            textBox1.Enabled = false;
-            textBox1.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(407, 196);
-            textBox1.Name = "textBox1";
-            textBox1.Size = new Size(43, 43);
-            textBox1.TabIndex = 2;
-            textBox1.Text = "_";
-            textBox1.TextAlign = HorizontalAlignment.Center;
+            Operand2.BackColor = Color.Snow;
+            Operand2.Enabled = false;
+            Operand2.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Operand2.Location = new Point(407, 196);
+            Operand2.Name = "Operand2";
+            Operand2.Size = new Size(43, 43);
+            Operand2.TabIndex = 2;
+            Operand2.Text = "_";
+            Operand2.TextAlign = HorizontalAlignment.Center;
             // 
             // OperatorBox
             // 
@@ -97,7 +96,7 @@
             // 
             // OutputBox
             // 
-            OutputBox.BackColor = SystemColors.ControlLight;
+            OutputBox.BackColor = Color.Gainsboro;
             OutputBox.Enabled = false;
             OutputBox.Font = new Font("Segoe UI", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             OutputBox.Location = new Point(487, 196);
@@ -106,25 +105,15 @@
             OutputBox.TabIndex = 5;
             OutputBox.TextAlign = HorizontalAlignment.Center;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(536, 127);
-            label1.Name = "label1";
-            label1.Size = new Size(38, 15);
-            label1.TabIndex = 6;
-            label1.Text = "label1";
-            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(label1);
             Controls.Add(OutputBox);
             Controls.Add(EqualBox);
             Controls.Add(OperatorBox);
-            Controls.Add(textBox1);
+            Controls.Add(Operand2);
             Controls.Add(Operand1);
             Controls.Add(OperatorLabel);
             KeyPreview = true;
@@ -141,10 +130,9 @@
 
         private Label OperatorLabel;
         private TextBox Operand1;
-        private TextBox textBox1;
+        private TextBox Operand2;
         private PictureBox OperatorBox;
         private PictureBox EqualBox;
         private TextBox OutputBox;
-        private Label label1;
     }
 }
