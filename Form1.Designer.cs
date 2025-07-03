@@ -32,11 +32,17 @@
             OperatorLabel = new Label();
             Operand1 = new TextBox();
             Operand2 = new TextBox();
-            OperatorBox = new PictureBox();
+            OperatorBoxAdd = new PictureBox();
             EqualBox = new PictureBox();
             OutputBox = new TextBox();
-            ((System.ComponentModel.ISupportInitialize)OperatorBox).BeginInit();
+            OperatorBoxSubtract = new PictureBox();
+            OperatorBoxDivide = new PictureBox();
+            OperatorBoxMultipy = new PictureBox();
+            ((System.ComponentModel.ISupportInitialize)OperatorBoxAdd).BeginInit();
             ((System.ComponentModel.ISupportInitialize)EqualBox).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)OperatorBoxSubtract).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)OperatorBoxDivide).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)OperatorBoxMultipy).BeginInit();
             SuspendLayout();
             // 
             // OperatorLabel
@@ -74,15 +80,16 @@
             Operand2.Text = "_";
             Operand2.TextAlign = HorizontalAlignment.Center;
             // 
-            // OperatorBox
+            // OperatorBoxAdd
             // 
-            OperatorBox.BackgroundImage = (Image)resources.GetObject("OperatorBox.BackgroundImage");
-            OperatorBox.BackgroundImageLayout = ImageLayout.None;
-            OperatorBox.Location = new Point(376, 207);
-            OperatorBox.Name = "OperatorBox";
-            OperatorBox.Size = new Size(25, 25);
-            OperatorBox.TabIndex = 3;
-            OperatorBox.TabStop = false;
+            OperatorBoxAdd.BackgroundImage = (Image)resources.GetObject("OperatorBoxAdd.BackgroundImage");
+            OperatorBoxAdd.BackgroundImageLayout = ImageLayout.None;
+            OperatorBoxAdd.Location = new Point(376, 207);
+            OperatorBoxAdd.Name = "OperatorBoxAdd";
+            OperatorBoxAdd.Size = new Size(25, 25);
+            OperatorBoxAdd.TabIndex = 3;
+            OperatorBoxAdd.TabStop = false;
+            OperatorBoxAdd.Visible = false;
             // 
             // EqualBox
             // 
@@ -105,14 +112,50 @@
             OutputBox.TabIndex = 5;
             OutputBox.TextAlign = HorizontalAlignment.Center;
             // 
+            // OperatorBoxSubtract
+            // 
+            OperatorBoxSubtract.BackgroundImage = (Image)resources.GetObject("OperatorBoxSubtract.BackgroundImage");
+            OperatorBoxSubtract.BackgroundImageLayout = ImageLayout.None;
+            OperatorBoxSubtract.Location = new Point(376, 207);
+            OperatorBoxSubtract.Name = "OperatorBoxSubtract";
+            OperatorBoxSubtract.Size = new Size(25, 25);
+            OperatorBoxSubtract.TabIndex = 6;
+            OperatorBoxSubtract.TabStop = false;
+            OperatorBoxSubtract.Visible = false;
+            // 
+            // OperatorBoxDivide
+            // 
+            OperatorBoxDivide.BackgroundImage = (Image)resources.GetObject("OperatorBoxDivide.BackgroundImage");
+            OperatorBoxDivide.BackgroundImageLayout = ImageLayout.None;
+            OperatorBoxDivide.Location = new Point(376, 207);
+            OperatorBoxDivide.Name = "OperatorBoxDivide";
+            OperatorBoxDivide.Size = new Size(25, 25);
+            OperatorBoxDivide.TabIndex = 7;
+            OperatorBoxDivide.TabStop = false;
+            OperatorBoxDivide.Visible = false;
+            // 
+            // OperatorBoxMultipy
+            // 
+            OperatorBoxMultipy.BackgroundImage = (Image)resources.GetObject("OperatorBoxMultipy.BackgroundImage");
+            OperatorBoxMultipy.BackgroundImageLayout = ImageLayout.None;
+            OperatorBoxMultipy.Location = new Point(376, 207);
+            OperatorBoxMultipy.Name = "OperatorBoxMultipy";
+            OperatorBoxMultipy.Size = new Size(25, 25);
+            OperatorBoxMultipy.TabIndex = 8;
+            OperatorBoxMultipy.TabStop = false;
+            OperatorBoxMultipy.Visible = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(OperatorBoxMultipy);
+            Controls.Add(OperatorBoxDivide);
+            Controls.Add(OperatorBoxSubtract);
             Controls.Add(OutputBox);
             Controls.Add(EqualBox);
-            Controls.Add(OperatorBox);
+            Controls.Add(OperatorBoxAdd);
             Controls.Add(Operand2);
             Controls.Add(Operand1);
             Controls.Add(OperatorLabel);
@@ -120,8 +163,11 @@
             Name = "Form1";
             Text = "Papicalc";
             Load += Form1_Load;
-            ((System.ComponentModel.ISupportInitialize)OperatorBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)OperatorBoxAdd).EndInit();
             ((System.ComponentModel.ISupportInitialize)EqualBox).EndInit();
+            ((System.ComponentModel.ISupportInitialize)OperatorBoxSubtract).EndInit();
+            ((System.ComponentModel.ISupportInitialize)OperatorBoxDivide).EndInit();
+            ((System.ComponentModel.ISupportInitialize)OperatorBoxMultipy).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -131,8 +177,11 @@
         private Label OperatorLabel;
         private TextBox Operand1;
         private TextBox Operand2;
-        private PictureBox OperatorBox;
+        private PictureBox OperatorBoxAdd;
         private PictureBox EqualBox;
         private TextBox OutputBox;
+        private PictureBox OperatorBoxSubtract;
+        private PictureBox OperatorBoxDivide;
+        private PictureBox OperatorBoxMultipy;
     }
 }

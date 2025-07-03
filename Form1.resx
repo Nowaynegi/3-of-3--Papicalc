@@ -118,18 +118,39 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="OperatorBox.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="OperatorBoxAdd.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAD9JREFUSEtjGAWjAAXIyMj8B2Eol/pg1AKCYOhYADOIVAzVThhg00wMhmonH1DN
-        IFxg1AKCYOhbMAqGImBgAADuhkTdERo5XgAAAABJRU5ErkJggg==
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAENJREFUSEtj
+        GAVUBTIyMv9BGMqlPhi1gCAYtYAgoNgCmAGUYqhxmACbYnIw1DjSAcUGEAKjFhAEoxYQBDS3YCQCBgYA
+        NS1aDTM4+3MAAAAASUVORK5CYII=
 </value>
   </data>
   <data name="EqualBox.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAENJREFUSEvt0SEOADAMQtEa7n/kzSBBkJk14SVfFtOpWgjAeYkznjpK4oynjpI4
-        Uz9Tj0vijKeOkjjjqaMkzlTtMXMB9l1lQXT9rOgAAAAASUVORK5CYII=
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAENJREFUSEvt
+        0SEOADAMQtEehPtfczNIEGRmTXjJl8V0qhYCcF7ijKeOkjjjqaMkztTP1OOSOOOpoyTOeOooiTNVe8xc
+        sLd/Ibvcr1gAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="OperatorBoxSubtract.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAACtJREFUSEtj
+        GAWjYBSMAjKBjIzMf3IwVDthgE0zMRiqfRSMglEwCkgDDAwAhKIlFbjzFqkAAAAASUVORK5CYII=
+</value>
+  </data>
+  <data name="OperatorBoxDivide.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAEtJREFUSEvt
+        1DEOACAIQ1EOwv2vqEzaJgwOxDjg1pcwwPDdNJEn7j4xI9deCAdm8ZE89Tnikac+ipcULyleQpR/y584
+        ITw4uYrcmG2YBTRId+wWXQAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="OperatorBoxMultipy.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAABgAAAAYCAYAAADgdz34AAAABGdBTUEAALGPC/xhBQAAAJRJREFUSEvt
+        lEsOgCAMRNlwC+5/RdCNTuNgmhigKGzUlxCwn6GUiPv5Lj6EsHDdBLErJn98GUBCwtiYWEViGJtosiEJ
+        TCyeRHyM6RPPKIHLJjVfF0rorFLWtD0Tz0Ao9zlimO+nCxGk8LjKNVM3UOLSnrEtgtC8SxaBklDNZwKJ
+        zSrFx5jbf3HPUxFpMjH3sft5E87ta8deR5sLtLsAAAAASUVORK5CYII=
 </value>
   </data>
 </root>
