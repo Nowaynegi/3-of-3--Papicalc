@@ -31,8 +31,14 @@ namespace Papicalc
 
         private void Form1_KeyPress(object sender, KeyPressEventArgs e)
         {
-            operands[selectedOperand].Text = e.KeyChar.ToString();
-            e.Handled = true;
+            Debug.Text = e.KeyChar.ToString();
+
+            int i;
+            if (int.TryParse(e.KeyChar.ToString(), out i))
+            {
+                operands[selectedOperand].Text = i.ToString();
+            }
+                e.Handled = true;
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {

@@ -35,6 +35,7 @@
             OperatorBox = new PictureBox();
             EqualBox = new PictureBox();
             OutputBox = new TextBox();
+            Debug = new Label();
             ((System.ComponentModel.ISupportInitialize)OperatorBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)EqualBox).BeginInit();
             SuspendLayout();
@@ -105,11 +106,21 @@
             OutputBox.TabIndex = 5;
             OutputBox.TextAlign = HorizontalAlignment.Center;
             // 
+            // Debug
+            // 
+            Debug.AutoSize = true;
+            Debug.Location = new Point(536, 178);
+            Debug.Name = "Debug";
+            Debug.Size = new Size(83, 15);
+            Debug.TabIndex = 6;
+            Debug.Text = "awaiting input";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(Debug);
             Controls.Add(OutputBox);
             Controls.Add(EqualBox);
             Controls.Add(OperatorBox);
@@ -134,5 +145,6 @@
         private PictureBox OperatorBox;
         private PictureBox EqualBox;
         private TextBox OutputBox;
+        private Label Debug;
     }
 }
