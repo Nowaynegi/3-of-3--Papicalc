@@ -6,11 +6,12 @@ namespace Papicalc
     public partial class Form1 : Form
     {
         private static List<TextBox> operandsBoxList;
-        private static int[] operandsIntList;
+        public static int[] operandsIntList;
         private static int selectedOperand;
-        private static int selectedOperator;
+        public static int selectedOperator;
         private static List<PictureBox> operatorsBoxList;
         private static PictureBox previousBox;
+        private static PictureBox currentBox;
         private static bool operatorAnimationUp;
 
         // variables for the animation! <3
@@ -43,15 +44,6 @@ namespace Papicalc
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //operands = new List<TextBox>();
-            //operands.Add(Operand1);
-            //operands.Add(Operand2);
-
-            //operands = new List<TextBox>();
-            //operands.AddRange(new TextBox[] { Operand1, Operand2 });
-
-            //operands = new List<TextBox> { Operand1, Operand2 };
-
             operatorsBoxList = [OperatorBoxAdd, OperatorBoxSubtract, OperatorBoxMultipy, OperatorBoxDivide];
 
             operandsBoxList = [Operand1, Operand2];
@@ -60,14 +52,6 @@ namespace Papicalc
             selectedOperator = 0;
             selectedOperand = 0;
             operatorsBoxList[selectedOperator].Visible = true;
-
-            /*System.Windows.Forms.Timer t = new System.Windows.Forms.Timer();
-            // how often a tick happens (in milliseconds)
-            t.Interval = 1000;
-
-            t.Tick += T_Tick;
-
-            t.Start();*/
 
             operatorAnimationTimer = new System.Windows.Forms.Timer
             {
@@ -108,13 +92,13 @@ namespace Papicalc
                 previousBoxWidth = previousBox.Size.Width - (int)((previousBox.Size.Width - 0) * easedT);
                 previousBox.Size = new Size(previousBoxWidth, previousBoxHight);
 
-                currentBoxX = operatorsBoxList[selectedOperator].Location.X - (int)((operatorsBoxList[selectedOperator].Location.X - 338) * easedT);
-                currentBoxY = operatorsBoxList[selectedOperator].Location.Y - (int)((operatorsBoxList[selectedOperator].Location.Y - 212) * easedT); //212 mid
-                operatorsBoxList[selectedOperator].Location = new Point(currentBoxX, currentBoxY);
+                currentBoxX = currentBox.Location.X - (int)((currentBox.Location.X - 338) * easedT);
+                currentBoxY = currentBox.Location.Y - (int)((currentBox.Location.Y - 212) * easedT); //212 mid
+                currentBox.Location = new Point(currentBoxX, currentBoxY);
 
-                currentBoxHight = operatorsBoxList[selectedOperator].Size.Height - (int)((operatorsBoxList[selectedOperator].Size.Height - 40) * easedT);
-                currentBoxWidth = operatorsBoxList[selectedOperator].Size.Width - (int)((operatorsBoxList[selectedOperator].Size.Width - 40) * easedT);
-                operatorsBoxList[selectedOperator].Size = new Size(currentBoxHight, currentBoxHight);
+                currentBoxHight = currentBox.Size.Height - (int)((currentBox.Size.Height - 40) * easedT);
+                currentBoxWidth = currentBox.Size.Width - (int)((currentBox.Size.Width - 40) * easedT);
+                currentBox.Size = new Size(currentBoxHight, currentBoxHight);
 
                 animationFrame++;
                 return;
@@ -135,13 +119,13 @@ namespace Papicalc
             previousBoxWidth = previousBox.Size.Width - (int)((previousBox.Size.Width - 0) * easedT);
             previousBox.Size = new Size(previousBoxWidth, previousBoxHight);
 
-            currentBoxX = operatorsBoxList[selectedOperator].Location.X - (int)((operatorsBoxList[selectedOperator].Location.X - 338) * easedT);
-            currentBoxY = operatorsBoxList[selectedOperator].Location.Y - (int)((operatorsBoxList[selectedOperator].Location.Y - 212) * easedT); //212 mid
-            operatorsBoxList[selectedOperator].Location = new Point(currentBoxX, currentBoxY);
+            currentBoxX = currentBox.Location.X - (int)((currentBox.Location.X - 338) * easedT);
+            currentBoxY = currentBox.Location.Y - (int)((currentBox.Location.Y - 212) * easedT); //212 mid
+            currentBox.Location = new Point(currentBoxX, currentBoxY);
 
-            currentBoxHight = operatorsBoxList[selectedOperator].Size.Height - (int)((operatorsBoxList[selectedOperator].Size.Height - 40) * easedT);
-            currentBoxWidth = operatorsBoxList[selectedOperator].Size.Width - (int)((operatorsBoxList[selectedOperator].Size.Width - 40) * easedT);
-            operatorsBoxList[selectedOperator].Size = new Size(currentBoxHight, currentBoxHight);
+            currentBoxHight = currentBox.Size.Height - (int)((currentBox.Size.Height - 40) * easedT);
+            currentBoxWidth = currentBox.Size.Width - (int)((currentBox.Size.Width - 40) * easedT);
+            currentBox.Size = new Size(currentBoxHight, currentBoxHight);
 
             animationFrame++;
             return;
@@ -166,7 +150,7 @@ namespace Papicalc
                 operandsBoxList[selectedOperand].Text = i.ToString();
                 operandsIntList[selectedOperand] = i;
 
-                OutputBox.Text = HandleCalculation();
+                OutputBox.Text = CalculateMethods.HandleCalculation();
             }
             e.Handled = true;
         }
@@ -175,7 +159,6 @@ namespace Papicalc
             if (keyData == Keys.Left)
             {
                 operandsBoxList[selectedOperand].BackColor = Color.Snow;
-                //selectedOperand = selectedOperand-- == -1 ? selectedOperand : selectedOperand--;
                 if (selectedOperand != 0) { selectedOperand--; }
                 operandsBoxList[selectedOperand].BackColor = Color.PowderBlue;
                 return true;
@@ -191,17 +174,18 @@ namespace Papicalc
             {
                 if (operatorAnimationTimer.Enabled && animationFrame <= 13)
                 {
-                    
-                    return true;//operatorsBoxList[selectedOperator].Visible = false;
+                    return true; 
                 }
                 operatorAnimationUp = true;
                 previousBox = operatorsBoxList[selectedOperator];
                 if (selectedOperator == operatorsBoxList.Count - 1) { selectedOperator = 0; }
                 else { selectedOperator++; }
-                OutputBox.Text = HandleCalculation();
-                operatorsBoxList[selectedOperator].Size = new Size(0, 0);
-                operatorsBoxList[selectedOperator].Location = new Point(358, 297);
-                operatorsBoxList[selectedOperator].Visible = true;
+                OutputBox.Text = CalculateMethods.HandleCalculation();
+
+                UpdateCurrentBox();
+                currentBox.Size = new Size(0, 0);
+                currentBox.Location = new Point(358, 297);
+                currentBox.Visible = true;
                 animationFrame = 0;
                 operatorAnimationTimer.Start();
                 return true;
@@ -210,59 +194,28 @@ namespace Papicalc
             {
                 if (operatorAnimationTimer.Enabled && animationFrame <= 13)
                 {
-                    
-                    return true;//operatorsBoxList[selectedOperator].Visible = false;
+                    return true; 
                 }
                 operatorAnimationUp = false;
                 previousBox = operatorsBoxList[selectedOperator];
                 if (selectedOperator == 0) { selectedOperator = operatorsBoxList.Count - 1; }
                 else { selectedOperator--; }
-                OutputBox.Text = HandleCalculation();
-                operatorsBoxList[selectedOperator].Size = new Size(0, 0);
-                operatorsBoxList[selectedOperator].Location = new Point(358, 167);
-                operatorsBoxList[selectedOperator].Visible = true;
+                OutputBox.Text = CalculateMethods.HandleCalculation();
+
+                UpdateCurrentBox();
+                currentBox.Size = new Size(0, 0);
+                currentBox.Location = new Point(358, 167);
+                currentBox.Visible = true;
                 animationFrame = 0;
-                
                 operatorAnimationTimer.Start();
                 return true;
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-        public static double Calculate(double operand1, int operatorInt, double operand2)
-        {
-            switch (operatorInt)
-            {
-                case 0:
-                    return operand1 + operand2;
-                case 1:
-                    return operand1 - operand2;
-                case 2:
-                    return operand1 * operand2;
-                case 3:
-                    if (operand2 == 0)
-                    {
-                        throw new DivideByZeroException("hey silly >~< don't divide by zeroo~ i dont know that one..");
-                    }
-                    return operand1 / operand2;
-                default:
-                    throw new Exception("unsupported operator! please enter + , - , * , or /");
-            }
-        }
 
-        public static string HandleCalculation()
+        public void UpdateCurrentBox()
         {
-            try
-            {
-                return Calculate(operandsIntList[0], selectedOperator, operandsIntList[1]).ToString();
-            }
-            catch (DivideByZeroException)
-            {
-                return "?";
-            }
-            catch (Exception)
-            {
-                return "??";
-            }
+            currentBox = operatorsBoxList[selectedOperator];
         }
     }
 }
