@@ -22,12 +22,11 @@
                     throw new Exception("unsupported operator! please enter + , - , * , or /");
             }
         }
-
-        public static string HandleCalculation()
+        public static string HandleCalculation(int op1, int operatorInt, int op2)
         {
             try
             {
-                return CalculateMethods.Calculate(Form1.operandsIntList[0], Form1.selectedOperator, Form1.operandsIntList[1]).ToString();
+                return CalculateMethods.Calculate(op1, operatorInt, op2).ToString();
             }
             catch (DivideByZeroException)
             {
