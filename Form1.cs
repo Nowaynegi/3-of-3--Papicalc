@@ -95,12 +95,12 @@ namespace Papicalc
             {
                 case Keys.Left:
                     operandsBoxList[selectedOperand].BackColor = Color.Snow;
-                    if (selectedOperand != 0) { selectedOperand--; }
+                    selectedOperand = (selectedOperand - 1 + operandsBoxList.Count) % operandsBoxList.Count; // the modulo allows you to cycle nya~ //if (selectedOperand > 0) { selectedOperand--; }
                     operandsBoxList[selectedOperand].BackColor = Color.PowderBlue;
                     return true;
                 case Keys.Right:
                     operandsBoxList[selectedOperand].BackColor = Color.Snow;
-                    if (selectedOperand != operandsBoxList.Count - 1) { selectedOperand++; }
+                    selectedOperand = (selectedOperand + 1) % operandsBoxList.Count; // if (selectedOperand != operandsBoxList.Count - 1) { selectedOperand++; }
                     operandsBoxList[selectedOperand].BackColor = Color.PowderBlue;
                     return true;
                 case Keys.Up:
