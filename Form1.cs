@@ -19,7 +19,7 @@ namespace Papicalc
         private const int MidOperatorRestingYCoordinate = 212;
         private const int LowerOperatorRestingYCoordinate = 297;
         //when operatorBox is 40x40, it rests symetrically at 358
-        private const int OperatorRestingCenterXCoordinate = 358; 
+        private const int OperatorRestingCenterXCoordinate = 358;
         private const int OperatorRestingXCoordinate = OperatorRestingCenterXCoordinate - OperatorFullSize / 2;  // top left x = center x - half the width
         private const int OperatorFullSize = 40;
         private int operatorDisplacement = 85;
@@ -109,10 +109,10 @@ namespace Papicalc
                     operandsBoxList[selectedOperand].BackColor = Color.PowderBlue;
                     return true;
                 case Keys.Up:
-                    StartOperatorAnimation(true); 
+                    StartOperatorAnimation(true);
                     return true; ;
                 case Keys.Down:
-                    StartOperatorAnimation(false); 
+                    StartOperatorAnimation(false);
                     return true; ;
                 default: break;
             }
