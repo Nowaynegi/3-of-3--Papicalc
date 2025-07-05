@@ -14,12 +14,13 @@ namespace Papicalc
         private PictureBox currentBox;
 
         //important positions
-        private int currentOpperatorStartingCoordinate;
-        private const int UpperOpperatorRestingYCoordinate = 167;
-        private const int MidOpperatorRestingYCoordinate = 212;
-        private const int LowerOpperatorRestingYCoordinate = 297;
+        private int currentOperatorStartingCoordinate;
+        private const int UpperOperatorRestingYCoordinate = 167;
+        private const int MidOperatorRestingYCoordinate = 212;
+        private const int LowerOperatorRestingYCoordinate = 297;
         //when operatorBox is 40x40, it rests symetrically at 358
-        private const int OperatorRestingXCordinate = 358;
+        private const int OperatorRestingCenterXCoordinate = OperatorRestingXCoordinate + OperatorFullSize / 2;  // center x = top left corner + half the width
+        private const int OperatorRestingXCoordinate = 338; 
         private const int OperatorFullSize = 40;
         private int operatorDisplacement = 85;
 
@@ -27,12 +28,6 @@ namespace Papicalc
         private System.Windows.Forms.Timer operatorAnimationTimer;
         private int animationFrame = 0;
         private const int TotalAnimationFrames = 10;
-
-        private Point previousPoint;
-        private Size previousSize;
-
-        private Point currentPoint;
-        private Size currentSize;
 
         public Form1()
         {
@@ -50,6 +45,8 @@ namespace Papicalc
             selectedOperator = 0;
             selectedOperand = 0;
             operatorsBoxList[selectedOperator].Visible = true;
+            operatorsBoxList[selectedOperator].Size = new Size(OperatorFullSize, OperatorFullSize);
+            operatorsBoxList[selectedOperator].Location = new Point(OperatorRestingXCoordinate, MidOperatorRestingYCoordinate);
 
             operatorAnimationTimer = new System.Windows.Forms.Timer
             {
@@ -65,17 +62,14 @@ namespace Papicalc
             float t = animationFrame / (float)TotalAnimationFrames;
 
             float easedT = (float)(0.5 - 0.5 * Math.Cos(t * Math.PI));
-            previousSize = new Size((int)(OperatorFullSize - OperatorFullSize * easedT), (int)(OperatorFullSize - OperatorFullSize * easedT));
-            previousBox.Size = previousSize;
+            float inverseEasedT = 1 - easedT;
+            previousBox.Size = new Size((int)(OperatorFullSize * inverseEasedT), (int)(OperatorFullSize * inverseEasedT));
 
-            previousPoint = new Point(OperatorRestingXCordinate - (previousBox.Size.Width / 2), (int)(MidOpperatorRestingYCoordinate + (operatorDisplacement) * easedT));
-            previousBox.Location = previousPoint;
+            previousBox.Location = new Point(OperatorRestingCenterXCoordinate - ((int)(OperatorFullSize * inverseEasedT) / 2), (int)(MidOperatorRestingYCoordinate + (operatorDisplacement) * easedT));
 
-            currentSize = new Size((int)(OperatorFullSize * easedT), (int)(OperatorFullSize * easedT));
-            currentBox.Size = currentSize;
+            currentBox.Size = new Size((int)(OperatorFullSize * easedT), (int)(OperatorFullSize * easedT));
 
-            currentPoint = new Point(OperatorRestingXCordinate - (currentBox.Size.Width / 2), (int)(currentOpperatorStartingCoordinate + (operatorDisplacement - OperatorFullSize) * easedT));
-            currentBox.Location = currentPoint;
+            currentBox.Location = new Point(OperatorRestingCenterXCoordinate - (int)(OperatorFullSize * easedT / 2), (int)(currentOperatorStartingCoordinate + (operatorDisplacement - OperatorFullSize) * easedT));
 
             animationFrame++;
             return;
@@ -110,16 +104,19 @@ namespace Papicalc
                     operandsBoxList[selectedOperand].BackColor = Color.PowderBlue;
                     return true;
                 case Keys.Up:
-                    StartOperatorAnimation(true, LowerOpperatorRestingYCoordinate); 
+                    StartOperatorAnimation(true); 
                     return true; ;
                 case Keys.Down:
-                    StartOperatorAnimation(false, UpperOpperatorRestingYCoordinate); 
+                    StartOperatorAnimation(false); 
                     return true; ;
                 default: break;
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
-        public bool StartOperatorAnimation(bool animationUp, int startlLocY)
+
+        //in the future, the generic startanimation method might need to take a starting coordinate, although it might be better for it to simply just take an object/control that way it can pass
+        //it on to the animationhandler, which deals with control properties
+        public bool StartOperatorAnimation(bool animationUp)
         {
             if (operatorAnimationTimer.Enabled)
             {
@@ -130,14 +127,14 @@ namespace Papicalc
             if (!animationUp)
             {
                 operatorDisplacement = 85;
-                currentOpperatorStartingCoordinate = UpperOpperatorRestingYCoordinate;
+                currentOperatorStartingCoordinate = UpperOperatorRestingYCoordinate;
                 if (selectedOperator == 0) { selectedOperator = operatorsBoxList.Count - 1; }
                 else { selectedOperator--; }
             }
             else
             {
                 operatorDisplacement = -85 + OperatorFullSize;
-                currentOpperatorStartingCoordinate = LowerOpperatorRestingYCoordinate;
+                currentOperatorStartingCoordinate = LowerOperatorRestingYCoordinate;
                 if (selectedOperator == operatorsBoxList.Count - 1) { selectedOperator = 0; }
                 else { selectedOperator++; }
             }
@@ -146,7 +143,7 @@ namespace Papicalc
 
             UpdateCurrentBox();
             currentBox.Size = new Size(0, 0);
-            currentBox.Location = new Point(OperatorRestingXCordinate, startlLocY);
+            currentBox.Location = new Point(OperatorRestingCenterXCoordinate, currentOperatorStartingCoordinate);
             currentBox.Visible = true;
             animationFrame = 0;
             operatorAnimationTimer.Start();
