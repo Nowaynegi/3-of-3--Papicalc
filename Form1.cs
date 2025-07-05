@@ -19,8 +19,8 @@ namespace Papicalc
         private const int MidOperatorRestingYCoordinate = 212;
         private const int LowerOperatorRestingYCoordinate = 297;
         //when operatorBox is 40x40, it rests symetrically at 358
-        private const int OperatorRestingCenterXCoordinate = OperatorRestingXCoordinate + OperatorFullSize / 2;  // center x = top left corner + half the width
-        private const int OperatorRestingXCoordinate = 338; 
+        private const int OperatorRestingCenterXCoordinate = 358; 
+        private const int OperatorRestingXCoordinate = OperatorRestingCenterXCoordinate - OperatorFullSize / 2;  // top left x = center x - half the width
         private const int OperatorFullSize = 40;
         private int operatorDisplacement = 85;
 
@@ -44,6 +44,11 @@ namespace Papicalc
 
             selectedOperator = 0;
             selectedOperand = 0;
+
+            foreach (var opBox in operatorsBoxList)
+            {
+                opBox.Visible = false;
+            }
             operatorsBoxList[selectedOperator].Visible = true;
             operatorsBoxList[selectedOperator].Size = new Size(OperatorFullSize, OperatorFullSize);
             operatorsBoxList[selectedOperator].Location = new Point(OperatorRestingXCoordinate, MidOperatorRestingYCoordinate);
