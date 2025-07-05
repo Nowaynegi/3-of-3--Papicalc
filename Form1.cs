@@ -12,20 +12,21 @@ namespace Papicalc
         private List<PictureBox> operatorsBoxList;
         private PictureBox previousBox;
         private PictureBox currentBox;
-        private bool operatorAnimationUp;
 
         //important positions
-        private int OpperatorEndpointYCoordinate;
-        private int UpperOpperatorRestingYCoordinate = 167;
-        private int MidOpperatorRestingYCoordinate = 212;
-        private int LowerOpperatorRestingYCoordinate = 297;
+        private int currentOpperatorStartingCoordinate;
+        private const int UpperOpperatorRestingYCoordinate = 167;
+        private const int MidOpperatorRestingYCoordinate = 212;
+        private const int LowerOpperatorRestingYCoordinate = 297;
         //when operatorBox is 40x40, it rests symetrically at 358
-        private int Operator4040XCordinate = 358;
+        private const int OperatorRestingXCordinate = 358;
+        private const int OperatorFullSize = 40;
+        private int operatorDisplacement = 85;
 
         // variables for the animation! <3
         private System.Windows.Forms.Timer operatorAnimationTimer;
         private int animationFrame = 0;
-        private const int totalAnimationFrames = 20;
+        private const int TotalAnimationFrames = 10;
 
         private Point previousPoint;
         private Size previousSize;
@@ -59,21 +60,21 @@ namespace Papicalc
 
         private void OperatorAnimationTimer_Tick(object? sender, EventArgs e)
         {
-            if (animationFrame >= totalAnimationFrames) { operatorAnimationTimer.Stop(); previousBox.Visible = false; }
+            if (animationFrame >= TotalAnimationFrames) { operatorAnimationTimer.Stop(); previousBox.Visible = false; }
 
-            float t = animationFrame / (float)totalAnimationFrames;
+            float t = animationFrame / (float)TotalAnimationFrames;
 
             float easedT = (float)(0.5 - 0.5 * Math.Cos(t * Math.PI));
-            previousSize = new Size(previousBox.Size.Height - (int)((previousBox.Size.Height) * easedT), previousBox.Size.Width - (int)((previousBox.Size.Width) * easedT));
+            previousSize = new Size((int)(OperatorFullSize - OperatorFullSize * easedT), (int)(OperatorFullSize - OperatorFullSize * easedT));
             previousBox.Size = previousSize;
 
-            previousPoint = new Point(Operator4040XCordinate - (previousBox.Size.Width / 2), previousBox.Location.Y - (int)((previousBox.Location.Y - OpperatorEndpointYCoordinate) * easedT));
+            previousPoint = new Point(OperatorRestingXCordinate - (previousBox.Size.Width / 2), (int)(MidOpperatorRestingYCoordinate + (operatorDisplacement) * easedT));
             previousBox.Location = previousPoint;
 
-            currentSize = new Size(currentBox.Size.Height - (int)((currentBox.Size.Height - 40) * easedT), currentBox.Size.Width - (int)((currentBox.Size.Width - 40) * easedT));
+            currentSize = new Size((int)(OperatorFullSize * easedT), (int)(OperatorFullSize * easedT));
             currentBox.Size = currentSize;
 
-            currentPoint = new Point(Operator4040XCordinate - (currentBox.Size.Width / 2), currentBox.Location.Y - (int)((currentBox.Location.Y - MidOpperatorRestingYCoordinate) * easedT));
+            currentPoint = new Point(OperatorRestingXCordinate - (currentBox.Size.Width / 2), (int)(currentOpperatorStartingCoordinate + (operatorDisplacement - OperatorFullSize) * easedT));
             currentBox.Location = currentPoint;
 
             animationFrame++;
@@ -96,33 +97,31 @@ namespace Papicalc
         }
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
         {
-            if (keyData == Keys.Left)
+            switch (keyData)
             {
-                operandsBoxList[selectedOperand].BackColor = Color.Snow;
-                if (selectedOperand != 0) { selectedOperand--; }
-                operandsBoxList[selectedOperand].BackColor = Color.PowderBlue;
-                return true;
-            }
-            if (keyData == Keys.Right)
-            {
-                operandsBoxList[selectedOperand].BackColor = Color.Snow;
-                if (selectedOperand != operandsBoxList.Count - 1) { selectedOperand++; }
-                operandsBoxList[selectedOperand].BackColor = Color.PowderBlue;
-                return true;
-            }
-            if (keyData == Keys.Up)
-            {
-                return StartOperatorAnimation(true, LowerOpperatorRestingYCoordinate);
-            }
-            if (keyData == Keys.Down)
-            {
-                return StartOperatorAnimation(false, UpperOpperatorRestingYCoordinate);
+                case Keys.Left:
+                    operandsBoxList[selectedOperand].BackColor = Color.Snow;
+                    if (selectedOperand != 0) { selectedOperand--; }
+                    operandsBoxList[selectedOperand].BackColor = Color.PowderBlue;
+                    return true;
+                case Keys.Right:
+                    operandsBoxList[selectedOperand].BackColor = Color.Snow;
+                    if (selectedOperand != operandsBoxList.Count - 1) { selectedOperand++; }
+                    operandsBoxList[selectedOperand].BackColor = Color.PowderBlue;
+                    return true;
+                case Keys.Up:
+                    StartOperatorAnimation(true, LowerOpperatorRestingYCoordinate); 
+                    return true; ;
+                case Keys.Down:
+                    StartOperatorAnimation(false, UpperOpperatorRestingYCoordinate); 
+                    return true; ;
+                default: break;
             }
             return base.ProcessCmdKey(ref msg, keyData);
         }
         public bool StartOperatorAnimation(bool animationUp, int startlLocY)
         {
-            if (operatorAnimationTimer.Enabled && animationFrame <= 13)
+            if (operatorAnimationTimer.Enabled)
             {
                 return true; //consume
             }
@@ -130,23 +129,24 @@ namespace Papicalc
             previousBox = operatorsBoxList[selectedOperator];
             if (!animationUp)
             {
-                OpperatorEndpointYCoordinate = LowerOpperatorRestingYCoordinate;
+                operatorDisplacement = 85;
+                currentOpperatorStartingCoordinate = UpperOpperatorRestingYCoordinate;
                 if (selectedOperator == 0) { selectedOperator = operatorsBoxList.Count - 1; }
                 else { selectedOperator--; }
             }
             else
             {
-                OpperatorEndpointYCoordinate = UpperOpperatorRestingYCoordinate;
+                operatorDisplacement = -85 + OperatorFullSize;
+                currentOpperatorStartingCoordinate = LowerOpperatorRestingYCoordinate;
                 if (selectedOperator == operatorsBoxList.Count - 1) { selectedOperator = 0; }
                 else { selectedOperator++; }
             }
 
             OutputBox.Text = CalculateMethods.HandleCalculation(operandsIntList[0], selectedOperator, operandsIntList[1]);
 
-            operatorAnimationUp = animationUp;
             UpdateCurrentBox();
             currentBox.Size = new Size(0, 0);
-            currentBox.Location = new Point(Operator4040XCordinate, startlLocY);
+            currentBox.Location = new Point(OperatorRestingXCordinate, startlLocY);
             currentBox.Visible = true;
             animationFrame = 0;
             operatorAnimationTimer.Start();
