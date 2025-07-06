@@ -38,11 +38,14 @@
             OperatorBoxSubtract = new PictureBox();
             OperatorBoxDivide = new PictureBox();
             OperatorBoxMultipy = new PictureBox();
+            DebugBox = new PictureBox();
+            DebugButton = new Button();
             ((System.ComponentModel.ISupportInitialize)OperatorBoxAdd).BeginInit();
             ((System.ComponentModel.ISupportInitialize)EqualBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)OperatorBoxSubtract).BeginInit();
             ((System.ComponentModel.ISupportInitialize)OperatorBoxDivide).BeginInit();
             ((System.ComponentModel.ISupportInitialize)OperatorBoxMultipy).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DebugBox).BeginInit();
             SuspendLayout();
             // 
             // OperatorLabel
@@ -145,11 +148,32 @@
             OperatorBoxMultipy.TabStop = false;
             OperatorBoxMultipy.Visible = false;
             // 
+            // DebugBox
+            // 
+            DebugBox.BackColor = Color.MistyRose;
+            DebugBox.Location = new Point(518, 96);
+            DebugBox.Name = "DebugBox";
+            DebugBox.Size = new Size(50, 50);
+            DebugBox.TabIndex = 9;
+            DebugBox.TabStop = false;
+            // 
+            // DebugButton
+            // 
+            DebugButton.Location = new Point(409, 108);
+            DebugButton.Name = "DebugButton";
+            DebugButton.Size = new Size(75, 23);
+            DebugButton.TabIndex = 10;
+            DebugButton.Text = "debug";
+            DebugButton.UseVisualStyleBackColor = true;
+            DebugButton.Click += DebugButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(DebugButton);
+            Controls.Add(DebugBox);
             Controls.Add(OperatorBoxMultipy);
             Controls.Add(OperatorBoxDivide);
             Controls.Add(OperatorBoxSubtract);
@@ -168,6 +192,7 @@
             ((System.ComponentModel.ISupportInitialize)OperatorBoxSubtract).EndInit();
             ((System.ComponentModel.ISupportInitialize)OperatorBoxDivide).EndInit();
             ((System.ComponentModel.ISupportInitialize)OperatorBoxMultipy).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DebugBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -183,5 +208,7 @@
         private PictureBox OperatorBoxSubtract;
         private PictureBox OperatorBoxDivide;
         private PictureBox OperatorBoxMultipy;
+        private PictureBox DebugBox;
+        private Button DebugButton;
     }
 }

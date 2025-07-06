@@ -160,5 +160,14 @@ namespace Papicalc
         {
             currentBox = operatorsBoxList[selectedOperator];
         }
+
+        private void DebugButton_Click(object sender, EventArgs e)
+        {
+            AnimationType[] requestedAnimations = { AnimationType.SizeTransform };
+            Size startSize = DebugBox.Size;
+            Size endSize = new Size(0,0);
+            UIAnimator animator = new UIAnimator(requestedAnimations, AnimationStyle.Ease, 0, 20, DebugBox, DebugBox.Location, DebugBox.Location, startSize, endSize);
+            animator.UIAnimatorTimer.Start();
+        }
     }
 }
