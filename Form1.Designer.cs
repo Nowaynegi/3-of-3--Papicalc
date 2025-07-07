@@ -39,7 +39,8 @@
             OperatorBoxDivide = new PictureBox();
             OperatorBoxMultipy = new PictureBox();
             DebugBox = new PictureBox();
-            DebugButton = new Button();
+            GrowButton = new Button();
+            ShrinkButton = new Button();
             ((System.ComponentModel.ISupportInitialize)OperatorBoxAdd).BeginInit();
             ((System.ComponentModel.ISupportInitialize)EqualBox).BeginInit();
             ((System.ComponentModel.ISupportInitialize)OperatorBoxSubtract).BeginInit();
@@ -157,22 +158,35 @@
             DebugBox.TabIndex = 9;
             DebugBox.TabStop = false;
             // 
-            // DebugButton
+            // GrowButton
             // 
-            DebugButton.Location = new Point(409, 108);
-            DebugButton.Name = "DebugButton";
-            DebugButton.Size = new Size(75, 23);
-            DebugButton.TabIndex = 10;
-            DebugButton.Text = "debug";
-            DebugButton.UseVisualStyleBackColor = true;
-            DebugButton.Click += DebugButton_Click;
+            GrowButton.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            GrowButton.Location = new Point(407, 96);
+            GrowButton.Name = "GrowButton";
+            GrowButton.Size = new Size(75, 25);
+            GrowButton.TabIndex = 10;
+            GrowButton.Text = "grow";
+            GrowButton.UseVisualStyleBackColor = true;
+            GrowButton.Click += GrowButton_Click;
+            // 
+            // ShrinkButton
+            // 
+            ShrinkButton.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            ShrinkButton.Location = new Point(407, 120);
+            ShrinkButton.Name = "ShrinkButton";
+            ShrinkButton.Size = new Size(75, 26);
+            ShrinkButton.TabIndex = 11;
+            ShrinkButton.Text = "shrink";
+            ShrinkButton.UseVisualStyleBackColor = true;
+            ShrinkButton.Click += ShrinkButton_Click;
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(DebugButton);
+            Controls.Add(ShrinkButton);
+            Controls.Add(GrowButton);
             Controls.Add(DebugBox);
             Controls.Add(OperatorBoxMultipy);
             Controls.Add(OperatorBoxDivide);
@@ -209,6 +223,7 @@
         private PictureBox OperatorBoxDivide;
         private PictureBox OperatorBoxMultipy;
         private PictureBox DebugBox;
-        private Button DebugButton;
+        private Button GrowButton;
+        private Button ShrinkButton;
     }
 }

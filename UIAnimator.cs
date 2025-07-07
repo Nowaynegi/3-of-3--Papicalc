@@ -32,7 +32,7 @@ namespace Papicalc
             _EndLoc = endLoc;
             _StartSize = startSize;
             _EndSize = endSize;
-            _CenterStartingXLoc = _StartLoc.X - startSize.Width / 2;
+            _CenterStartingXLoc = _StartLoc.X + startSize.Width / 2;
 
             UIAnimatorTimer = new System.Windows.Forms.Timer
             {
@@ -72,13 +72,12 @@ namespace Papicalc
             {
                 Control.Size = new Size((int)(_StartSize.Width * inverseEasedT + _EndSize.Width * easedT), (int)(_StartSize.Height * inverseEasedT + _EndSize.Height * easedT));
 
-                //Control.Location = new Point((int)(_CenterStartingXLoc - (Control.Size.Width / 2)), _StartSize.Height);
+                Control.Location = new Point(_CenterStartingXLoc - Control.Size.Width / 2, _StartLoc.Y + (_StartSize.Height - Control.Size.Height) / 2);
             }
             AnimationFrame++;
             return;
         }
     }
-
 }
 public enum AnimationType
 {
